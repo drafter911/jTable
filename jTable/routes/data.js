@@ -29,7 +29,7 @@ router.get('/data', function (req, res, next) {
                 return 0;
             });
     }
-    page = (+parameters.offset / 20) + 1;
+    page = Math.ceil((+parameters.offset / 20) + 1);
     res.send({table: pagedData, page: page, count: data.length});
 });
 

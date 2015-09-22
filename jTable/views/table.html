@@ -1,14 +1,66 @@
+<div class="btn-block">
+    <button class="btn show-form">+</button>
+    <button class="btn hide-form hidden">-</button>
+</div>
+<div class="form-block abs hidden">
+    <span class="abs form-block-close">x</span>
+    <h3 class="form-block-title">Add new Item</h3>
+    <form id="new-item-form">
+        <div class="form-elem pull-right">
+            <label for="is-active-select">Is active</label>
+            <div class="select inline-block">
+                <select name="isActive" id="is-active-select">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-elem pull-right">
+            <label for="age-input">Age</label>
+            <div class="input inline-block">
+                <input type="text" id="age-input" name="age"
+                       oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"/>
+            </div>
+        </div>
+        <div class="form-elem pull-right">
+            <label for="credit-input">Credit</label>
+            <div class="input inline-block">
+                <input type="text" id="credit-input" name="credit"
+                       oninput="this.value = this.value.replace(/(?!^-)[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"/>
+            </div>
+        </div>
+        <div class="form-elem pull-right">
+            <label for="latitude-input">Latitude</label>
+            <div class="input inline-block">
+                <input type="text" id="latitude-input" name="latitude"
+                       oninput="this.value = this.value.replace(/(?!^-)[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"/>
+            </div>
+        </div>
+        <div class="form-elem pull-right">
+            <label for="longitude-input">Longitude</label>
+            <div class="input inline-block">
+                <input type="text" id="longitude-input" name="longitude"
+                       oninput="this.value = this.value.replace(/(?!^-)[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"  />
+            </div>
+        </div>
+        <div class="form-elem pull-right">
+            <div class="input inline-block">
+                <input type="submit" id="submit-input" value="Add"/>
+            </div>
+        </div>
+    </form>
+</div>
 <table class="data-table">
-	<thead>
-	<tr>
-		<th>ID</th>
-		<th>Is active</th>
-		<th>Age</th>
-		<th>Credit</th>
-		<th>Latitude</th>
-		<th>Longitude</th>
-	</tr>
-	</thead>
-	<tbody class="content"></tbody>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Is active</th>
+        <th>Age</th>
+        <th>Credit</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+    </tr>
+    </thead>
+    <tbody class="content"></tbody>
 </table>
 <ul class="pagination"></ul>
