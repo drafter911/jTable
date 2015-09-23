@@ -11,10 +11,6 @@ If You want to start this simple app, first You need:
 
 -clone project
 
-cd project root & run pack.sh (doubleClick or "sh pack.sh" command from Your terminal).
-
-Must been open "localhost:4004/data" in your browser
-
 Tap commands in Your terminal:
 cd <PROJECT_ROOT_PATH>
 cd jTable
