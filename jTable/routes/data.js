@@ -22,9 +22,9 @@ router.get('/data', function (req, res, next) {
     }
     if (parameters.hasOwnProperty('sortBy')) {
             pagedData.sort(function (a, b) {
-                if (a[parameters.sortBy] > b[parameters.sortBy])
+                if (+a[parameters.sortBy] > +b[parameters.sortBy])
                     return 1;
-                if (a[parameters.sortBy] < b[parameters.sortBy])
+                if (+a[parameters.sortBy] < +b[parameters.sortBy])
                     return -1;
                 return 0;
             });

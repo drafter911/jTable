@@ -1,9 +1,9 @@
-console.log(window);
+console.log(window.localStorage);
 $.ajaxSetup({
     url: 'api/data'
 });
 
-var app = {
+var App = {
     params: {
         limit: 20,
         offset: 0,
@@ -28,6 +28,15 @@ var app = {
                 data: data
             });
         }
+    },
+
+    serialize: function (obj) {
+        var str = [];
+        for (var p in obj)
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            }
+        return str.join("&");
     },
 
     elemView: {
@@ -86,15 +95,19 @@ var app = {
                     container.append('<li class="bord-none">' + '...' + '</li>');
                 } else {
                     container.append('<li class="page-btn" data-page="' + i + '"><a href="?limit=20&offset=' +
-                        ((i - 1) * 20) + '"' + (currentPage === i ? 'class="active"' : '') + '>' + i + '</a></li>');
+                        ((i - 1) * 20) + (window.localStorage.sortBy ? window.localStorage.sortBy : '') +
+                        '"' + (currentPage === i ? 'class="active"' : '') + '>' + i + '</a></li>');
                 }
             }
+
+            $('.pagination>.page-btn>a').on('click', function (e) {
+            });
         }
     }
 };
 
 if (window.location.search) {
-    app.params = window.location.search;
+    App.params = window.location.search;
 }
 
 $(document).ready(function () {
@@ -102,34 +115,40 @@ $(document).ready(function () {
     var container = $('.content'),
         paginator = $('.pagination'),
         btnBlock = $('.btn-block'),
-        formBlock = $('.form-block'),
+        formBlock = $('.form-block');
 
-        request = app.requests.get(app.params);
+        //request = App.requests.get(App.params);
 
     btnBlock.on('click', '.btn', function (e) {
-        app.appView.toggleForm(btnBlock, formBlock);
+        App.appView.toggleForm(btnBlock, formBlock);
     });
 
     formBlock.on('click', '.form-block-close', function () {
-        app.appView.toggleForm(btnBlock, formBlock);
+        App.appView.toggleForm(btnBlock, formBlock);
     });
 
     formBlock.on("submit", '#new-item-form', function (event) {
         event.preventDefault();
-        app.requests.set($(this).serialize());
+        App.requests.set($(this).serialize());
         console.log($(this).serialize());
-        app.appView.toggleForm(btnBlock, formBlock);
+        App.appView.toggleForm(btnBlock, formBlock);
     });
 
-    request.done(function (data) {
+    App.requests.get(App.params)
+    .done(function (data) {
         var Collection = data.table;
         console.log('data:', data);
-        console.log(data.table);
 
         $.each(Collection, function (i, v) {
-            app.elemView.renderElem(container, v);
+            App.elemView.renderElem(container, v);
         });
-        app.appView.initPagination(100, paginator, data.page);
+            App.appView.initPagination(300, paginator, data.page);
+
+        $('.data-table').on('click', '.sort-by', function (e) {
+            window.localStorage.sortBy = '&sortBy=' + $(e.target).attr('data-sort');
+            App.appView.initPagination(100, paginator, data.page);
+            location.reload();
+        });
     });
 
 });

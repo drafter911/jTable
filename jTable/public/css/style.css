@@ -124,6 +124,25 @@ th, tr, td {
 	border: 1px solid #ccc;
 }
 
+th {
+    position: relative;
+}
+
+th:after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    right: 10px;
+    margin-top: -4px;
+    border-top: 8px solid gray;
+    border-left: 8px solid white;
+    border-right: 8px solid white;
+}
+
+th:hover:after {
+    border-top-color: cadetblue;
+}
+
 .pagination {
 	list-style: none;
 }
