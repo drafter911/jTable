@@ -79,25 +79,24 @@ var App = {
         },
 
         initPagination: function (count, container, currentPage) {
-            var pages = Math.ceil(count / 20),
-                lowLimit = 10,
-                highLimit = 10;
 
-            if (pages > lowLimit) {
-                lowLimit = 5;
-                highLimit = pages - 5;
-            }
+            var pages = Math.ceil(count / 20),
+                viewParameter = 5;
 
             for (var i = 1; i <= pages; i++) {
-                if (i > lowLimit) {
-                    lowLimit = i + 100;
-                    i = (highLimit - 1);
+
+                if ((i === currentPage + viewParameter) ||
+                    ((i === currentPage - viewParameter) && ( currentPage !== viewParameter + 1))) {
                     container.append('<li class="bord-none">' + '...' + '</li>');
-                } else {
-                    container.append('<li class="page-btn" data-page="' + i + '"><a href="?limit=20&offset=' +
-                        ((i - 1) * 20) + (window.localStorage.sortBy ? window.localStorage.sortBy : '') +
-                        '"' + (currentPage === i ? 'class="active"' : '') + '>' + i + '</a></li>');
                 }
+
+                container.append('<li class="page-btn'+
+                    (((i - currentPage) > viewParameter - 1) && (i !== pages) ? ' hidden' : '') +
+                    (((currentPage - i) > viewParameter - 1) && (i !== 1) ? ' hidden' : '') +
+                    '"><a href="?limit=20&offset=' + ((i - 1) * 20) +
+                    (window.localStorage.sortBy ? window.localStorage.sortBy : '') +
+                    '" class="' + (currentPage === i ? 'active' : '') +
+                    '" data-page="' + i + '">' + i + '</a></li>');
             }
 
             $('.pagination>.page-btn>a').on('click', function (e) {
@@ -117,7 +116,7 @@ $(document).ready(function () {
         btnBlock = $('.btn-block'),
         formBlock = $('.form-block');
 
-        //request = App.requests.get(App.params);
+    //request = App.requests.get(App.params);
 
     btnBlock.on('click', '.btn', function (e) {
         App.appView.toggleForm(btnBlock, formBlock);
@@ -131,24 +130,25 @@ $(document).ready(function () {
         event.preventDefault();
         App.requests.set($(this).serialize());
         console.log($(this).serialize());
-        App.appView.toggleForm(btnBlock, formBlock);
+        location.reload();
+        //App.appView.toggleForm(btnBlock, formBlock);
     });
 
     App.requests.get(App.params)
-    .done(function (data) {
-        var Collection = data.table;
-        console.log('data:', data);
+        .done(function (data) {
+            var Collection = data.table;
+            console.log('data:', data);
 
-        $.each(Collection, function (i, v) {
-            App.elemView.renderElem(container, v);
-        });
-            App.appView.initPagination(300, paginator, data.page);
+            $.each(Collection, function (i, v) {
+                App.elemView.renderElem(container, v);
+            });
+            App.appView.initPagination(data.count, paginator, data.page);
 
-        $('.data-table').on('click', '.sort-by', function (e) {
-            window.localStorage.sortBy = '&sortBy=' + $(e.target).attr('data-sort');
-            App.appView.initPagination(100, paginator, data.page);
-            location.reload();
+            $('.data-table').on('click', '.sort-by', function (e) {
+                window.localStorage.sortBy = '&sortBy=' + $(e.target).attr('data-sort');
+                App.appView.initPagination(data.count, paginator, data.page);
+                location.reload();
+            });
         });
-    });
 
 });
