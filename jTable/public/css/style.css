@@ -35,7 +35,7 @@ input, select {
 
 .pull-right { float: right; }
 
-.clearfix:after { display: block;  content: ''; }
+/*.clearfix:after { display: block;  content: ''; }*/
 
 .red { color: red; }
 
@@ -67,11 +67,10 @@ input, select {
 .btn {
 	display: block;
 	width: 34px;
-	height: 34px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	line-height: 34px;
-	font-size: 34px;
+	line-height: 32px;
+	font-size: 28px;
 	color: gray;  /
 	background-color: white;
 }
@@ -128,7 +127,7 @@ th {
     position: relative;
 }
 
-th:after {
+.sort-by:after {
     position: absolute;
     content: '';
     top: 50%;
@@ -139,7 +138,7 @@ th:after {
     border-right: 8px solid white;
 }
 
-th:hover:after {
+.sort-by:hover:after {
     border-top-color: cadetblue;
 }
 

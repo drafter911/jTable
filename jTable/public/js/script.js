@@ -43,7 +43,7 @@ var App = {
 
         renderElem: function (container, v) {
             container.append(
-                '<tr><td>' + v._id +
+                '<tr><td>' + (v._id) +
                 '</td><td>' + this.convertBoolean(v.isActive) +
                 '</td><td' + this.checkNumberSign(v.age) + '>' + v.age +
                 '</td><td' + this.checkNumberSign(v.credit) + '>' + v.credit +
@@ -116,9 +116,7 @@ $(document).ready(function () {
         btnBlock = $('.btn-block'),
         formBlock = $('.form-block');
 
-    //request = App.requests.get(App.params);
-
-    btnBlock.on('click', '.btn', function (e) {
+    btnBlock.on('click', '.btn', function () {
         App.appView.toggleForm(btnBlock, formBlock);
     });
 
@@ -131,7 +129,6 @@ $(document).ready(function () {
         App.requests.set($(this).serialize());
         console.log($(this).serialize());
         location.reload();
-        //App.appView.toggleForm(btnBlock, formBlock);
     });
 
     App.requests.get(App.params)
@@ -145,9 +142,9 @@ $(document).ready(function () {
             App.appView.initPagination(data.count, paginator, data.page);
 
             $('.data-table').on('click', '.sort-by', function (e) {
-                window.localStorage.sortBy = '&sortBy=' + $(e.target).attr('data-sort');
-                App.appView.initPagination(data.count, paginator, data.page);
-                location.reload();
+                var sortBy = $(e.target).attr('data-sort');
+                window.localStorage.sortBy = '&sortBy=' + sortBy;
+                window.location.href = '?limit=20&offset=0&sortBy=' + sortBy;
             });
         });
 
