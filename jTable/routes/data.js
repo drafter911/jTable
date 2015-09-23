@@ -16,19 +16,20 @@ router.get('/data', function (req, res, next) {
     if (parameters.hasOwnProperty('page') == false) {
         req.params.page = parameters.offset / 10;
     }
+    if (parameters.hasOwnProperty('sortBy')) {
+        data.sort(function (a, b) {
+            if (+a[parameters.sortBy] > +b[parameters.sortBy])
+                return 1;
+            if (+a[parameters.sortBy] < +b[parameters.sortBy])
+                return -1;
+            return 0;
+        });
+    }
     var pagedData = [];
     for (var i = parameters.offset; i < (+parameters.limit + +parameters.offset); i++) {
         pagedData.push(data[i]);
     }
-    if (parameters.hasOwnProperty('sortBy')) {
-            pagedData.sort(function (a, b) {
-                if (+a[parameters.sortBy] > +b[parameters.sortBy])
-                    return 1;
-                if (+a[parameters.sortBy] < +b[parameters.sortBy])
-                    return -1;
-                return 0;
-            });
-    }
+
     page = Math.ceil((+parameters.offset / 20) + 1);
     res.send({table: pagedData, page: page, count: data.length});
 });

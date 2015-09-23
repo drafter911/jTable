@@ -1,20 +1,20 @@
-* {
-	box-sizing: border-box !important;
-}
+* {  box-sizing: border-box !important;  }
 
 html, body, h1, h2, h3, p {
 	margin: 0;
 	padding: 0;
 }
 
-html, body {
-	height: 100%;
-}
+html, body {  height: 100%;  }
 
 select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	padding-right: 20px;
+	background: url("../img/select-arr.png") no-repeat right;
+	background-size: 16px 10px;
+	background-position-x: 95%;
 }
 
 input, select {
@@ -35,17 +35,30 @@ input, select {
 
 .pull-right { float: right; }
 
-/*.clearfix:after { display: block;  content: ''; }*/
-
 .red { color: red; }
 
 .blue { color: blue; }
+
+.white { color: #fff; }
+
+.gray { color: gray; }
+
+.text-center {
+	text-align: center;
+}
 
 #header, #footer {
 	height: 50px;
 	background-color: #ccc;
 }
 
+#header h1, #footer p {
+	line-height: 50px;
+}
+
+#header h1:first-letter {
+	color: gray;
+}
 #main:before, #main:after {
 	content: '';
 	display: block;
@@ -175,4 +188,14 @@ th {
 .pagination .bord-none:hover, .pagination .bord-none:focus {
 	color: black;
 	background-color: white;
+}
+
+.preloader {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: url("../img/preloader.GIF") center no-repeat;
+
 }

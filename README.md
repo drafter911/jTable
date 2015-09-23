@@ -1,9 +1,9 @@
-# SimpleTable
-Simple Backbone Marionette aplication
+# jTable
+jQuery simple table
 
 Hello everybody :)
 
-This is my first personal project :)
+This application with node js & jquery displays simple table with data from server response.
 
 If You want to start this simple app, first You need:
 
@@ -15,9 +15,9 @@ cd project root & run pack.sh (doubleClick or "sh pack.sh" command from Your ter
 
 Must been open "localhost:4004/data" in your browser
 
-Or tap commands (in project root) in Your terminal:
-
-cd dataTable
+Tap commands in Your terminal:
+cd <PROJECT_ROOT_PATH>
+cd jTable
 npm install
 node app
 

@@ -1,9 +1,11 @@
 extends layout
 
 block header
-	header(id="header") HEADER
+	header(id="header")
+		include ./header.html
 block content
 	div(id="main")
 		include ./table.html
 block footer
-	footer(id="footer") FOOTER
+	footer(id="footer")
+		include ./footer.html

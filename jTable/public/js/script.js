@@ -1,4 +1,3 @@
-console.log(window.localStorage);
 $.ajaxSetup({
     url: 'api/data'
 });
@@ -7,8 +6,7 @@ var App = {
     params: {
         limit: 20,
         offset: 0,
-        sortBy: '_id',
-        desc: false
+        sortBy: '_id'
     },
 
     requests: {
@@ -42,14 +40,15 @@ var App = {
     elemView: {
 
         renderElem: function (container, v) {
-            container.append(
-                '<tr><td>' + (v._id) +
-                '</td><td>' + this.convertBoolean(v.isActive) +
-                '</td><td' + this.checkNumberSign(v.age) + '>' + v.age +
-                '</td><td' + this.checkNumberSign(v.credit) + '>' + v.credit +
-                '</td><td' + this.checkNumberSign(v.latitude) + '>' + Math.round(+v.latitude) +
-                '</td><td' + this.checkNumberSign(v.longitude) + '>' + (+v.longitude).toFixed(1) +
-                '</td></tr>');
+            if(v){
+                container.append(
+                    '<tr><td>' + (v._id) +
+                    '</td><td>' + this.convertBoolean(v.isActive) +
+                    '</td><td' + this.checkNumberSign(v.age) + '>' + v.age +
+                    '</td><td' + this.checkNumberSign(v.credit) + '>' + v.credit +
+                    '</td><td' + this.checkNumberSign(v.latitude) + '>' + Math.round(+v.latitude) +
+                    '</td><td' + this.checkNumberSign(v.longitude) + '>' + (+v.longitude).toFixed(1) + '</td></tr>');
+            }
         },
 
         convertBoolean: function (bool) {
@@ -98,9 +97,6 @@ var App = {
                     '" class="' + (currentPage === i ? 'active' : '') +
                     '" data-page="' + i + '">' + i + '</a></li>');
             }
-
-            $('.pagination>.page-btn>a').on('click', function (e) {
-            });
         }
     }
 };
@@ -139,6 +135,7 @@ $(document).ready(function () {
             $.each(Collection, function (i, v) {
                 App.elemView.renderElem(container, v);
             });
+            $('.preloader').addClass('hidden');
             App.appView.initPagination(data.count, paginator, data.page);
 
             $('.data-table').on('click', '.sort-by', function (e) {
